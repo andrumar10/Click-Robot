@@ -3,6 +3,7 @@ This is a retooling of Adafruit's demo of Monochrome OLEDs based on SSD1306 driv
 It's used to control a display and peripherals to mimic the behavior of Click-Robot, a character from the webcomic Achewood
 Read the specific behavior being cloned here http://achewood.com/index.php?date=02032005
 The peripherals include a TDK piezo speaker, a red LED, and one of the last remaining adafruit monochrome OLED board obtained from a US redistributor https://chicagodist.com/ 
+BALLSSS
 */
 #include <SPI.h>
 #include <Wire.h>
