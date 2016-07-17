@@ -26,7 +26,7 @@ Adafruit_SSD1306 display(OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
 Adafruit_SSD1306 display(OLED_DC, OLED_RESET, OLED_CS);
 */
 
-#define NUMFLAKES 10
+#define NUMFLAKES 10 //The number of bitmaps that appear on screen during the bitmap draw demos
 #define XPOS 0
 #define YPOS 1
 #define DELTAY 2
@@ -34,6 +34,7 @@ Adafruit_SSD1306 display(OLED_DC, OLED_RESET, OLED_CS);
 
 #define LOGO16_GLCD_HEIGHT 16 
 #define LOGO16_GLCD_WIDTH  16 
+//This is a leftover binary-style bitmap from the adafruit demo. I keep it around in case I want to add in a bitmap in the design later on and want a reference.
 static const unsigned char PROGMEM logo16_glcd_bmp[] =
 { B00000000, B11000000,
   B00000001, B11000000,
