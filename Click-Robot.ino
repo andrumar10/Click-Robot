@@ -1,21 +1,9 @@
 /*********************************************************************
-This is an example for our Monochrome OLEDs based on SSD1306 drivers
-
-  Pick one up today in the adafruit shop!
-  ------> http://www.adafruit.com/category/63_98
-
-This example is for a 128x64 size display using SPI to communicate
-4 or 5 pins are required to interface
-
-Adafruit invests time and resources providing this open source code, 
-please support Adafruit and open-source hardware by purchasing 
-products from Adafruit!
-
-Written by Limor Fried/Ladyada  for Adafruit Industries.  
-BSD license, check license.txt for more information
-All text above, and the splash screen must be included in any redistribution
-*********************************************************************/
-
+This is a retooling of Adafruit's demo of Monochrome OLEDs based on SSD1306 drivers
+It's used to control a display and peripherals to mimic the behavior of Click-Robot, a character from the webcomic Achewood
+Read the specific behavior being cloned here http://achewood.com/index.php?date=02032005
+The peripherals include a TDK piezo speaker, a red LED, and one of the last remaining adafruit monochrome OLED board obtained from a US redistributor https://chicagodist.com/ 
+*/
 #include <SPI.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
