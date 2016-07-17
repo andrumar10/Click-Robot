@@ -38,32 +38,48 @@ Adafruit_PCD8544 display = Adafruit_PCD8544(7, 6, 5, 4, 3);
 // Note with hardware SPI MISO and SS pins aren't used but will still be read
 // and written to during SPI transfer.  Be careful sharing these pins!
 
-#define NUMFLAKES 10
+//#define NUMFLAKES 3
 #define XPOS 0
 #define YPOS 1
 #define DELTAY 2
 
 
-#define LOGO16_GLCD_HEIGHT 16
-#define LOGO16_GLCD_WIDTH  16
+#define LOGO16_GLCD_HEIGHT 32
+#define LOGO16_GLCD_WIDTH  32
 
 static const unsigned char PROGMEM logo16_glcd_bmp[] =
-{ B00000000, B11000000,
-  B00000001, B11000000,
-  B00000001, B11000000,
-  B00000011, B11100000,
-  B11110011, B11100000,
-  B11111110, B11111000,
-  B01111110, B11111111,
-  B00110011, B10011111,
-  B00011111, B11111100,
-  B00001101, B01110000,
-  B00011011, B10100000,
-  B00111111, B11100000,
-  B00111111, B11110000,
-  B01111100, B11110000,
-  B01110000, B01110000,
-  B00000000, B00110000 };
+{   0x00, 0x00, 0x00, 0x00, 
+    0x00, 0x01, 0x00, 0x00, 
+    0x00, 0x81, 0x80, 0x00, 
+    0x00, 0xc1, 0x80, 0x00, 
+    0x00, 0xe1, 0xc0, 0x00, 
+    0x00, 0xe1, 0xc0, 0x00, 
+    0x00, 0xe1, 0xc0, 0x00, 
+    0x00, 0xe1, 0xc0, 0x00, 
+    0x00, 0xe0, 0x80, 0x00, 
+    0x00, 0xe0, 0x80, 0x00, 
+    0x00, 0x6f, 0xc0, 0x00, 
+    0x00, 0x7f, 0xf0, 0x00, 
+    0x00, 0x77, 0xfc, 0x00, 
+    0x00, 0x7d, 0xff, 0x00, 
+    0x01, 0x7f, 0x7f, 0xc0, 
+    0x07, 0x7d, 0xdd, 0xc0, 
+    0x07, 0x75, 0xf7, 0x80, 
+    0x07, 0x71, 0xff, 0xc0, 
+    0x01, 0x7c, 0x7f, 0xc0, 
+    0x00, 0x4d, 0x7f, 0x80, 
+    0x01, 0xad, 0xff, 0xa0, 
+    0x04, 0x2f, 0xdf, 0xe0, 
+    0x00, 0x03, 0x4f, 0xe0, 
+    0x00, 0x00, 0xef, 0xe0, 
+    0x00, 0x00, 0xaa, 0x80, 
+    0x00, 0x00, 0xe8, 0x80, 
+    0x00, 0x00, 0x40, 0x40, 
+    0x00, 0x00, 0x40, 0x00, 
+    0x00, 0x00, 0x60, 0x00, 
+    0x00, 0x00, 0x20, 0x00, 
+    0x00, 0x00, 0x20, 0x00, 
+    0x00, 0x00, 0x00, 0x00 };
 
 void setup()   {
   Serial.begin(9600);
@@ -76,98 +92,13 @@ void setup()   {
   display.setContrast(50);
 
   display.display(); // show splashscreen
-  delay(2000);
+  delay(100);
   display.clearDisplay();   // clears the screen and buffer
 
-  // draw a single pixel
-  display.drawPixel(10, 10, BLACK);
-  display.display();
-  delay(2000);
-  display.clearDisplay();
-
-  // draw many lines
-  testdrawline();
-  display.display();
-  delay(2000);
-  display.clearDisplay();
-
-  // draw rectangles
-  testdrawrect();
-  display.display();
-  delay(2000);
-  display.clearDisplay();
-
-  // draw multiple rectangles
-  testfillrect();
-  display.display();
-  delay(2000);
-  display.clearDisplay();
-
-  // draw mulitple circles
-  testdrawcircle();
-  display.display();
-  delay(2000);
-  display.clearDisplay();
-
-  // draw a circle, 10 pixel radius
-  display.fillCircle(display.width()/2, display.height()/2, 10, BLACK);
-  display.display();
-  delay(2000);
-  display.clearDisplay();
-
-  testdrawroundrect();
-  delay(2000);
-  display.clearDisplay();
-
-  testfillroundrect();
-  delay(2000);
-  display.clearDisplay();
-
-  testdrawtriangle();
-  delay(2000);
-  display.clearDisplay();
-   
-  testfilltriangle();
-  delay(2000);
-  display.clearDisplay();
-
-  // draw the first ~12 characters in the font
-  testdrawchar();
-  display.display();
-  delay(2000);
-  display.clearDisplay();
-
-  // text display tests
-  display.setTextSize(1);
-  display.setTextColor(BLACK);
-  display.setCursor(0,0);
-  display.println("Hello, world!");
-  display.setTextColor(WHITE, BLACK); // 'inverted' text
-  display.println(3.141592);
-  display.setTextSize(2);
-  display.setTextColor(BLACK);
-  display.print("0x"); display.println(0xDEADBEEF, HEX);
-  display.display();
-  delay(2000);
-
-  // rotation example
-  display.clearDisplay();
-  display.setRotation(1);  // rotate 90 degrees counter clockwise, can also use values of 2 and 3 to go further.
-  display.setTextSize(1);
-  display.setTextColor(BLACK);
-  display.setCursor(0,0);
-  display.println("Rotation");
-  display.setTextSize(2);
-  display.println("Example!");
-  display.display();
-  delay(2000);
-
-  // revert back to no rotation
-  display.setRotation(0);
 
   // miniature bitmap display
   display.clearDisplay();
-  display.drawBitmap(30, 16,  logo16_glcd_bmp, 16, 16, 1);
+  display.drawBitmap(0, 0,  logo16_glcd_bmp, 32, 32, 1);
   display.display();
 
   // invert the display
@@ -175,6 +106,8 @@ void setup()   {
   delay(1000); 
   display.invertDisplay(false);
   delay(1000); 
+  display.clearDisplay(); 
+  display.display();
 
   // draw a bitmap icon and 'animate' movement
   testdrawbitmap(logo16_glcd_bmp, LOGO16_GLCD_WIDTH, LOGO16_GLCD_HEIGHT);
@@ -187,13 +120,17 @@ void loop() {
 
 
 void testdrawbitmap(const uint8_t *bitmap, uint8_t w, uint8_t h) {
+  int NUMFLAKES = 3;
+  int i = 1;
   uint8_t icons[NUMFLAKES][3];
-  randomSeed(666);     // whatever seed
+  randomSeed(analogRead(0));     // proper atmospheric seeding
  
-  // initialize
+  // initialize    
+  Serial.print(display.width(), DEC);
+
   for (uint8_t f=0; f< NUMFLAKES; f++) {
-    icons[f][XPOS] = random(display.width());
-    icons[f][YPOS] = 0;
+    icons[f][XPOS] = random(0,display.width()-32); //actual pixel width of image -1 for inclusiveness
+    icons[f][YPOS] =  display.height();
     icons[f][DELTAY] = random(5) + 1;
     
     Serial.print("x: ");
@@ -216,14 +153,28 @@ void testdrawbitmap(const uint8_t *bitmap, uint8_t w, uint8_t h) {
     for (uint8_t f=0; f< NUMFLAKES; f++) {
       display.drawBitmap(icons[f][XPOS], icons[f][YPOS],  logo16_glcd_bmp, w, h, WHITE);
       // move it
-      icons[f][YPOS] += icons[f][DELTAY];
+      icons[f][YPOS] -= icons[f][DELTAY];
+      icons[f][XPOS] -= icons[f][1];
+      Serial.print("x: ");
+      Serial.print(icons[f][XPOS], DEC);
+      Serial.print(" y: ");
+      Serial.print(icons[f][YPOS], DEC);
+      Serial.print(" dy: ");
+      Serial.println(icons[f][DELTAY], DEC);
+
       // if its gone, reinit
-      if (icons[f][YPOS] > display.height()) {
-	icons[f][XPOS] = random(display.width());
-	icons[f][YPOS] = 0;
-	icons[f][DELTAY] = random(5) + 1;
+      
+      if (icons[f][YPOS] > 250 || icons[f][XPOS] > 250) { //Gross overflow abuse.
+  	    icons[f][XPOS] = random(0,display.width()-32);//actual pixel width of image -1 for inclusiveness
+  	    icons[f][YPOS] =  display.height()+LOGO16_GLCD_WIDTH;
+  	    icons[f][DELTAY] = random(5) + 1;
+        }
       }
-    }
+   if (i > 10){
+     i = 0;
+     NUMFLAKES = NUMFLAKES+1;
+     }
+     i = i+1;
    }
 }
 
