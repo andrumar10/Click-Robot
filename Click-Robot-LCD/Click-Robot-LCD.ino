@@ -95,7 +95,13 @@ void setup()   {
   delay(100);
   display.clearDisplay();   // clears the screen and buffer
 
-
+  testdrawchar();
+  display.display();
+  delay(5000);
+  display.invertDisplay(true); //THis bullshit isn't subclassed in the LCD Libraries, so it isn't supported. FML.
+  delay(1000); 
+  display.invertDisplay(false);
+  delay(1000); 
   // miniature bitmap display
   display.clearDisplay();
   display.drawBitmap(0, 0,  logo16_glcd_bmp, 32, 32, 1);
