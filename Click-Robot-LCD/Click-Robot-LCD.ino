@@ -98,10 +98,12 @@ void setup()   {
   testdrawchar();
   display.display();
   delay(5000);
+ while(1){
   display.invertDisplay(true); //THis bullshit isn't subclassed in the LCD Libraries, so it isn't supported. FML.
   delay(1000); 
   display.invertDisplay(false);
   delay(1000); 
+  }
   // miniature bitmap display
   display.clearDisplay();
   display.drawBitmap(0, 0,  logo16_glcd_bmp, 32, 32, 1);
