@@ -89,7 +89,7 @@ void setup()   {
 
   // you can change the contrast around to adapt the display
   // for the best viewing!
-  display.setContrast(50);
+  display.setContrast(50); //scales up to 127
 
   display.display(); // show splashscreen
   delay(100);
@@ -106,6 +106,8 @@ void setup()   {
   display.clearDisplay();
   display.drawBitmap(0, 0,  logo16_glcd_bmp, 32, 32, 1);
   display.display();
+  
+  testdrawroundrect();
 
   // invert the display
   display.invertDisplay(true);
@@ -238,9 +240,11 @@ void testfilltriangle(void) {
 }
 
 void testdrawroundrect(void) {
-  for (int16_t i=0; i<display.height()/2-2; i+=2) {
-    display.drawRoundRect(i, i, display.width()-2*i, display.height()-2*i, display.height()/4, BLACK);
+  for (int16_t i=0; i<display.height()/4-2; i+=2) {
+    display.drawRoundRect(0, 0, display.width(), display.height(), i, BLACK);
     display.display();
+	delay(100);
+	display.clearDisplay();
   }
 }
 
