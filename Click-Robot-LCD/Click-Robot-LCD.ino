@@ -14,6 +14,11 @@ products from Adafruit!
 Written by Limor Fried/Ladyada  for Adafruit Industries.
 BSD license, check license.txt for more information
 All text above, and the splash screen must be included in any redistribution
+
+with spaces, font 0 is 6x8 pixels, spaces are down and left
+font 1 is double everything (1 pixel inflated to 2)
+font 2 is triple everything (1 pixel inflated to 3)
+
 *********************************************************************/
 
 #include <SPI.h>
@@ -188,10 +193,12 @@ void testdrawbitmap(const uint8_t *bitmap, uint8_t w, uint8_t h) {
 
 
 void testdrawchar(void) {
-  display.setTextSize(1);
+for(uint8_t j=1; j<6; j++){
+  display.setTextSize(j);
   display.setTextColor(BLACK);
   display.setCursor(0,0);
-
+  delay(3000);
+  display.clearDisplay();
   for (uint8_t i=0; i < 168; i++) {
     if (i == '\n') continue;
     display.write(i);
@@ -199,6 +206,8 @@ void testdrawchar(void) {
       //display.println();
   }    
   display.display();
+}
+
 }
 
 void testdrawcircle(void) {
@@ -243,7 +252,7 @@ void testdrawroundrect(void) {
   for (int16_t i=0; i<display.height()/4-2; i+=2) {
     display.drawRoundRect(0, 0, display.width(), display.height(), i, BLACK);
     display.display();
-	delay(100);
+	delay(3000);
 	display.clearDisplay();
   }
 }
