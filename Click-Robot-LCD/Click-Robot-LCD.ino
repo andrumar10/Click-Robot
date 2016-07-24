@@ -49,7 +49,7 @@ Adafruit_PCD8544 display = Adafruit_PCD8544(7, 6, 5, 4, 3);
 #define XPOS 0
 #define YPOS 1
 #define DELTAY 2
-
+#define sections 3
 
 #define LOGO16_GLCD_HEIGHT 32
 #define LOGO16_GLCD_WIDTH  32
@@ -126,14 +126,7 @@ void setup()   {
   display.display();
 */
   delay(1000);
-  display.setCursor(0,0);
-  display.setTextSize(1);
-  display.write(0x30);
-  display.display();
-  delay(1000);//something up there is screwing with the cursor setter
-  display.clearDisplay(); //also apparently clears the setcursor!
-  display.display();
-  delay(1000);
+  backmenu(sections);
  // display.setFont(&FreeSans9pt7b);//something in here is screwing with the cursor setter, would not recommend
   display.setCursor(0,0);
   display.setTextSize(1);
@@ -284,6 +277,33 @@ void testdrawchar(void) {
   display.display();
   delay(3000);
 }
+
+void backmenu(int menuoptions) {
+   //int menuoptions = 3;
+   int menuline = 0;
+   int optionheight = display.height()-12; //border (1) + character height (8) +  pixel space (1) + inline menu border (2)
+   display.drawRoundRect(0, 0, display.width(), display.height(), 4, BLACK);
+   display.drawLine(42,optionheight,42,display.height()-1,BLACK); //midway on display
+   display.drawLine(43,optionheight,43,display.height()-1,BLACK);
+   display.setCursor(20-3*3,display.height()-8); // (1/4 the distance - 1) - number of chars * half the width ; for centering
+   display.setTextSize(1);
+   display.write(0x53); //S
+   display.write(0x65); //e
+   display.write(0x6C); //l
+
+   display.setCursor(62-3*5,display.height()-8); // (3/4 the distance - 1) - number of chars * half the width ; for centering
+   display.write(0x4F); //O
+   display.write(0x6B); //k
+   display.write(0x00); //' '
+   display.write(0x47); //G
+   display.write(0x6F); //o
+   for(int8_t i=0; i<=menuoptions; i++){
+   menuline = (optionheight*i/menuoptions)-1;
+    display.drawLine(0,menuline,display.width()-1,menuline,BLACK);
+   }
+   display.display();
+   delay(30000);
+} 
 
 void testdrawcircle(void) {
   for (int16_t i=0; i<display.height(); i+=2) {
