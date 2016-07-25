@@ -1,0 +1,4 @@
+class: build a way to trigger events when a button is pressed. lock out race conditions.
+class: splashscreen to add
+class: text effects? text control and easier direction of adding text into locations. maybe predefined locations?
+class: a way to build trivia from textfiles maybe? IDK how to parse things though...
